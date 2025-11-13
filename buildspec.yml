@@ -25,13 +25,14 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - for repo in $REPOSITORIES; do
-          echo "Building image for $repo";
-          cd $repo;
-          docker push $$REPOSITORY_URI:$IMAGE_TAG:latest;
-          docker push $$REPOSITORY_URI:$IMAGE_TAG;
-          cd ..;
-        done
+      - docker push $$REPOSITORY_URI:$IMAGE_TAG:latest;
+      #- for repo in $REPOSITORIES; do
+      #    echo "Building image for $repo";
+      #    cd $repo;
+      #    docker push $$REPOSITORY_URI:$IMAGE_TAG:latest;
+      #    docker push $$REPOSITORY_URI:$IMAGE_TAG;
+      #    cd ..;
+      #  done
       # - echo Writing image definitions file...;
       # - printf '[{"name":"my-cicd-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json;
 
