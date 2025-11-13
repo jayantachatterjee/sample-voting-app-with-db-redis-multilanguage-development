@@ -17,8 +17,8 @@ phases:
       - for repo in $REPOSITORIES; do
           echo "Building image for $repo";
           cd $repo;
-          docker build -t $REPOSITORY_URI:$IMAGE_TAG:$repo .;
-          docker tag $REPOSITORY_URI:$IMAGE_TAG:$repo:latest 864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/$repo:latest;
+          docker build -t $REPOSITORY_URI:$IMAGE_TAG .;
+          docker tag $REPOSITORY_URI:$IMAGE_TAG:latest 864899853618.dkr.ecr.ap-southeast-1.amazonaws.com:latest;
           cd ..;
         done
   post_build:
