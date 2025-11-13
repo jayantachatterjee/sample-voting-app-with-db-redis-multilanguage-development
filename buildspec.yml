@@ -32,9 +32,9 @@ phases:
           docker push $$REPOSITORY_URI:$IMAGE_TAG:$repo;
           cd ..;
         done
-      - echo Writing image definitions file...;
-      - printf '[{"name":"my-cicd-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json;
+      # - echo Writing image definitions file...;
+      # - printf '[{"name":"my-cicd-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json;
 
-  artifacts:
-   files:
-     - imagedefinitions.json
+  # artifacts:
+  # files:
+  #   - imagedefinitions.json
