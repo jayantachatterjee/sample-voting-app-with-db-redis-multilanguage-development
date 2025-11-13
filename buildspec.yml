@@ -28,8 +28,8 @@ phases:
       - for repo in $REPOSITORIES; do
           echo "Building image for $repo";
           cd $repo;
-          docker push $$REPOSITORY_URI:$IMAGE_TAG:$repo:latest;
-          docker push $$REPOSITORY_URI:$IMAGE_TAG:$repo;
+          docker push $$REPOSITORY_URI:$IMAGE_TAG:latest;
+          docker push $$REPOSITORY_URI:$IMAGE_TAG;
           cd ..;
         done
       # - echo Writing image definitions file...;
