@@ -29,7 +29,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI/vote:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:latest
