@@ -5,15 +5,15 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 864899853618.dkr.ecr.ap-southeast-1.amazonaws.com
-      - REPOSITORY_URI=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/voting-app-multi-container
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      #- REPOSITORY_URI=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/voting-app-multi-container
+      #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      #- IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
     # Building vote image 
       - echo Build started for Votting image on `date`
-      - docker build -t $REPOSITORY_URI/vote:$IMAGE_TAG ./vote
-      - docker tag $REPOSITORY_URI/vote:$IMAGE_TAG $REPOSITORY_URI/vote:latest
+      - docker build -t $ECR_REPOSITORY_URI/vote:$IMAGE_TAG ./vote
+      - docker tag $ECR_REPOSITORY_URI/vote:$IMAGE_TAG $ECR_REPOSITORY_URI/vote:latest
     
     # Building result image 
     #   - echo Build started for Result image on `date`
@@ -29,7 +29,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $REPOSITORY_URI/vote:$IMAGE_TAG
+      - docker push $ECR_REPOSITORY_URI/vote:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:latest
