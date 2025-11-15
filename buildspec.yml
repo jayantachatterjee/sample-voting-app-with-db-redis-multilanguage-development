@@ -14,25 +14,25 @@ phases:
     # Building vote image 
       - echo Build started for Votting image on `date`
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./vote
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:vote:latest
     
     # Building result image 
       - echo Build started for Result image on `date`
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./result
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:result:latest
 
     # Building worker image 
       - echo Build started for Worker image on `date`
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./worker
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:worker:latest
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $$REPOSITORY_URI:$IMAGE_TAG:vote
-      - docker push $$REPOSITORY_URI:$IMAGE_TAG:result
-      - docker push $$REPOSITORY_URI:$IMAGE_TAG:worker
+      - docker push $$REPOSITORY_URI:$IMAGE_TAG
+      - docker push $$REPOSITORY_URI:$IMAGE_TAG
+      - docker push $$REPOSITORY_URI:$IMAGE_TAG
       - docker push $$REPOSITORY_URI:vote:latest
       - docker push $$REPOSITORY_URI:result:latest
       - docker push $$REPOSITORY_URI:workerlatest
