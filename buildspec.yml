@@ -30,12 +30,12 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $$REPOSITORY_URI/vote:$IMAGE_TAG
-      - docker push $$REPOSITORY_URI/result:$IMAGE_TAG
-      - docker push $$REPOSITORY_URI/worker:$IMAGE_TAG
-      - docker push $$REPOSITORY_URI/vote:latest
-      - docker push $$REPOSITORY_URI/result:latest
-      - docker push $$REPOSITORY_URI/workerlatest
+      - docker push $REPOSITORY_URI/vote:$IMAGE_TAG
+      - docker push $REPOSITORY_URI/result:$IMAGE_TAG
+      - docker push $REPOSITORY_URI/worker:$IMAGE_TAG
+      - docker push $REPOSITORY_URI/vote:latest
+      - docker push $REPOSITORY_URI/result:latest
+      - docker push $REPOSITORY_URI/workerlatest
 artifacts:
   files:
     - imagedefinitions.json
