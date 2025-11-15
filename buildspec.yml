@@ -1,5 +1,4 @@
 version: 0.2
-REPOSITORIESS: "result vote worker"
 phases:
   pre_build:
     commands:
