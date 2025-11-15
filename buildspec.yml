@@ -13,7 +13,7 @@ phases:
     # Building vote image 
       - echo Build started for Votting image on `date`
       - docker build -t vote:$IMAGE_TAG ./vote
-      - docker tag vote:$IMAGE_TAG $ECR_REPOSITORY_URI/vote:$IMAGE_TAG 
+      - docker tag vote:$IMAGE_TAG $ECR_REPOSITORY_URI/voting-app-multi-container:$IMAGE_TAG 
       #$ECR_REPOSITORY_URI/vote:latest
     
     # Building result image 
@@ -30,7 +30,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $ECR_REPOSITORY_URI/vote:$IMAGE_TAG
+      - docker push $ECR_REPOSITORY_URI/voting-app-multi-container:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:latest
