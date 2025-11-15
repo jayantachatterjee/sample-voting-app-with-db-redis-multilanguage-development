@@ -32,9 +32,9 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - docker push $REPOSITORY_URI:vote:latest
-      - docker push $REPOSITORY_URI:result:latest
-      - docker push $REPOSITORY_URI:workerlatest
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:latest
 artifacts:
   files:
     - imagedefinitions.json
