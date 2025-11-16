@@ -8,8 +8,7 @@ phases:
       - REPOSITORY_URI_vote=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/vote
       - REPOSITORY_URI_result=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/result
       - REPOSITORY_URI_worker=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/worker
-      # - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      # - IMAGE_TAG=${COMMIT_HASH:=latest}
+
   build:
     commands:
     # Building vote image 
@@ -31,11 +30,8 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      #- docker push $REPOSITORY_URI_vote:$IMAGE_TAG
       - docker push $REPOSITORY_URI_vote:latest
-      #- docker push $REPOSITORY_URI_result:$IMAGE_TAG
       - docker push $REPOSITORY_URI_result:latest
-      - docker push $REPOSITORY_URI_worker:$IMAGE_TAG
       - docker push $REPOSITORY_URI_worker:latest
 artifacts:
   files:
