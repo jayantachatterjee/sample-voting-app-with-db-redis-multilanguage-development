@@ -8,8 +8,8 @@ phases:
       - REPOSITORY_URI_vote=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/vote
       - REPOSITORY_URI_result=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/result
       - REPOSITORY_URI_worker=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/worker
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      # - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      # - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
     # Building vote image 
