@@ -31,7 +31,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
-      # - docker push $REPOSITORY_URI:$IMAGE_TAG
+      # - docker push $REPOSITORY_URI:IMAGE_TAG
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       # - docker push $REPOSITORY_URI:latest
       # - docker push $REPOSITORY_URI:latest
