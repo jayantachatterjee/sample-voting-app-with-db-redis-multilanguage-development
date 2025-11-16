@@ -5,37 +5,42 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 864899853618.dkr.ecr.ap-southeast-1.amazonaws.com
-      - REPOSITORY_URI=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/voting-app-multi-container
+      - REPOSITORY_URI_vote=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/vote
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - REPOSITORY_URI_result=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/result
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - REPOSITORY_URI_worker=864899853618.dkr.ecr.ap-southeast-1.amazonaws.com/worker
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
     # Building vote image 
       - echo Build started for Votting image on `date`
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./vote
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
-      #$ECR_REPOSITORY_URI/vote:latest
+      - docker build -t $REPOSITORY_URI_vote:$IMAGE_TAG ./vote
+      - docker tag $REPOSITORY_URI_vote:$IMAGE_TAG $REPOSITORY_URI_vote:latest
     
     # Building result image 
-    #   - echo Build started for Result image on `date`
-    #   - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./result
-    #   - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:result:latest
+      - echo Build started for Result image on `date`
+      - docker build -t $REPOSITORY_URI_result:$IMAGE_TAG ./result
+      - docker tag $REPOSITORY_URI_result:$IMAGE_TAG $REPOSITORY_URI_result:latest
 
     # Building worker image 
-    #   - echo Build started for Worker image on `date`
-    #   - docker build -t $REPOSITORY_URI:$IMAGE_TAG ./worker
-    #   - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:worker:latest
+      - echo Build started for Worker image on `date`
+      - docker build -t $REPOSITORY_URI_worker:$IMAGE_TAG ./worker
+      - docker tag $REPOSITORY_URI_worker:$IMAGE_TAG $REPOSITORY_URI_worker:latest
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing all Docker images to ECR...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      # - docker push $REPOSITORY_URI:IMAGE_TAG
-      # - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - docker push $REPOSITORY_URI:latest
-      # - docker push $REPOSITORY_URI:latest
-      # - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI_vote:$IMAGE_TAG
+      - docker push $REPOSITORY_URI_vote:latest
+      - docker push $REPOSITORY_URI_result:$IMAGE_TAG
+      - docker push $REPOSITORY_URI_result:latest
+      - docker push $REPOSITORY_URI_worker:$IMAGE_TAG
+      - docker push $REPOSITORY_URI_worker:latest
 artifacts:
   files:
     - imagedefinitions.json
